@@ -447,11 +447,11 @@
 circle {
   fill: #ccc;
   stroke: #333;
-  stroke-width: 2px;
+  stroke-width: 3px;
 }
 
 text {
-  font: 10px sans-serif;
+  font: 20px sans-serif;
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
@@ -526,13 +526,13 @@ var path = svg.append("g").selectAll("path")
 var circle = svg.append("g").selectAll("circle")
     .data(force.nodes())
   .enter().append("circle")
-    .attr("r", 8)
+    .attr("r", 14)
     .call(force.drag);
 
 var text = svg.append("g").selectAll("text")
     .data(force.nodes())
   .enter().append("text")
-    .attr("x", 10)
+    .attr("x", 18)
     .attr("y", ".31em")
     .text(function(d) { return d.name; });
 
