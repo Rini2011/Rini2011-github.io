@@ -657,8 +657,7 @@ svg.append("circle")
 
 </script>
 	
-	
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <meta charset="utf-8">
 <style>
 
@@ -685,7 +684,7 @@ var width = 960,
     height = 500;
 
 var x = d3.time.scale()
-    .domain([new Date(2010, 0, 2), new Date(2010, 1, 1)])
+    .domain([new Date(2017, 0, 2), new Date(2010, 1, 1)])
     .range([0, width]);
 
 var xAxis = d3.svg.axis()
@@ -706,7 +705,7 @@ var g = svg.append("g")
 setInterval(update, duration + delay);
 
 function update() {
-  x.domain([new Date(2010, 0, 2), new Date(2010, 0, Math.floor(Math.random() * 21) + 10)]);
+  x.domain([new Date(2017, 0, 2), new Date(2010, 0, Math.floor(Math.random() * 21) + 10)]);
 
   g.transition()
       .duration(duration)
