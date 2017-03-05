@@ -8,38 +8,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Step 3 - Adding a Legend</title>
-    <link rel="stylesheet" href="normalize.css">
-    <style>
-      .legend {                                                   /* NEW */
-        font-size: 12px;                                          /* NEW */
-      }                                                           /* NEW */
-      rect {                                                      /* NEW */
-        stroke-width: 2;                                          /* NEW */
-      }                                                           /* NEW */
-    </style>
+    <meta charset="utf-8" />
+    <title>First page</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" rel="stylesheet" data-semver="3.0.1" data-require="normalize@*" />
   </head>
+
   <body>
     <div id="chart"></div>
-    <script src="d3.v4.min.js"></script>
+    <script data-require="d3@*" data-semver="6.0.0" src="https://d3js.org/d3.v4.min.js"></script>
     <script>
       (function(d3) {
         'use strict';
 
         var dataset = [
-          { label: 'Abulia', count: 10 },
-          { label: 'Betelgeuse', count: 20 },
-          { label: 'Cantaloupe', count: 30 },
-          { label: 'Dijkstra', count: 40 }
+          { label: 'x', count: 5 }, 
+            { label: 'd', count: 10 },
+            { label: 'c', count: 30 },
+            { label: 'd', count: 10 },
+            { label: 'c', count: 10 },
+            { label: 'v', count: 35 }
         ];
 
-        var width = 360;
-        var height = 360;
+        var width = 500;
+        var height = 500;
         var radius = Math.min(width, height) / 2;
-        var donutWidth = 75;
-        var legendRectSize = 18;                                  // NEW
-        var legendSpacing = 4;                                    // NEW
 
         var color = d3.scaleOrdinal(d3.schemeCategory20b);
 
@@ -48,11 +40,11 @@
           .attr('width', width)
           .attr('height', height)
           .append('g')
-          .attr('transform', 'translate(' + (width / 2) +
+          .attr('transform', 'translate(' + (width / 2) + 
             ',' + (height / 2) + ')');
 
         var arc = d3.arc()
-          .innerRadius(radius - donutWidth)
+          .innerRadius(150)
           .outerRadius(radius);
 
         var pie = d3.pie()
@@ -64,38 +56,17 @@
           .enter()
           .append('path')
           .attr('d', arc)
-          .attr('fill', function(d, i) {
+          .attr('fill', function(d, i) { 
             return color(d.data.label);
           });
 
-        var legend = svg.selectAll('.legend')                     // NEW
-          .data(color.domain())                                   // NEW
-          .enter()                                                // NEW
-          .append('g')                                            // NEW
-          .attr('class', 'legend')                                // NEW
-          .attr('transform', function(d, i) {                     // NEW
-            var height = legendRectSize + legendSpacing;          // NEW
-            var offset =  height * color.domain().length / 2;     // NEW
-            var horz = -2 * legendRectSize;                       // NEW
-            var vert = i * height - offset;                       // NEW
-            return 'translate(' + horz + ',' + vert + ')';        // NEW
-          });                                                     // NEW
-
-        legend.append('rect')                                     // NEW
-          .attr('width', legendRectSize)                          // NEW
-          .attr('height', legendRectSize)                         // NEW
-          .style('fill', color)                                   // NEW
-          .style('stroke', color);                                // NEW
-
-        legend.append('text')                                     // NEW
-          .attr('x', legendRectSize + legendSpacing)              // NEW
-          .attr('y', legendRectSize - legendSpacing)              // NEW
-          .text(function(d) { return d; });                       // NEW
-
       })(window.d3);
+        
     </script>
   </body>
+
 </html>
+
  
  
 <!DOCTYPE html>
