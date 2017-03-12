@@ -418,7 +418,7 @@ function arcTween(b) {
         d.innerRadius = outerRadius/2; // Set Inner Coordinate
         return "translate(" + arc.centroid(d) + ")rotate(" + angle(d) + ")";
       })
-      .style("fill", "White")
+      .style("fill", "black")
       .style("font", "bold 12px Arial")
       .text(function(d) { return d.data.magnitude; });
 
@@ -445,7 +445,7 @@ function arcTween(b) {
 	</head>
 	<body>
 		<script type="text/javascript">
-			var w = 900;
+			var w = 1900;
 			var h = 300;
 			
 			var dataset = [
