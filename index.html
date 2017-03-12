@@ -834,6 +834,11 @@ body {
   fill: grey;
   stroke: none;
 }
+.area.switzerland, .switzerland .circle {
+  fill: blue;
+  stroke: none;
+}	
+	
 </style>
 
 <script src="http://d3js.org/d3.v3.js"></script>
@@ -869,7 +874,18 @@ var data = [
       {axis: "dexterity", value: 13},  
       {axis: "luck", value: 9}
     ]
-  }
+  },
+ {
+    className: 'switzerland',
+    axes: [
+      {axis: "strength", value: 9}, 
+      {axis: "intelligence", value: 3}, 
+      {axis: "charisma", value: 8},  
+      {axis: "dexterity", value: 11},  
+      {axis: "luck", value: 5}
+    ]
+  }	
+	
 ];
 function randomDataset() {
   return data.map(function(d) {
