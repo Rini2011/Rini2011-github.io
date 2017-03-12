@@ -446,7 +446,7 @@ function arcTween(b) {
 	<body>
 		<script type="text/javascript">
 			var w = 900;
-			var h = 600;
+			var h = 300;
 			
 			var dataset = [
 					[5, 2], [480, 9], [250, 5], [100, 3], [330, 9],
@@ -469,7 +469,7 @@ function arcTween(b) {
 			   		return d[1];
 			   })
 			   .attr("r", function(d) {
-			   		return Math.sqrt(h - d[0]);
+			   		return Math.sqrt(h - d[1]);
 			   });
 			svg.selectAll("text")
 			   .data(dataset)
