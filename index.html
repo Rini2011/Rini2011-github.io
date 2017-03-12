@@ -469,7 +469,7 @@ function arcTween(b) {
 			   		return d[1];
 			   })
 			   .attr("r", function(d) {
-			   		return Math.sqrt(h - d[1]);
+			   		return Math.sqrt(h - d[0]);
 			   });
 			svg.selectAll("text")
 			   .data(dataset)
