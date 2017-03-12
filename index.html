@@ -499,14 +499,14 @@ function drawBubbleChart(root){
     // indicating where to draw them (x,y), and how big to draw them (r).
     // This is worked out using the "value" property of each leaf.
     //
-    var bubble = d3.layout.pack().sort(null).size([960,960]).padding(1.5);
+    var bubble = d3.layout.pack().sort(null).size([760,760]).padding(1.5);
     //
     // Make a SVG graphic
     //
     var svg = d3.select("body")
                 .append("svg")
-                .attr("width",760)
-                .attr("height", 760)
+                .attr("width",960)
+                .attr("height", 960)
                 .attr("class","bubble");
     
     //
