@@ -952,15 +952,3 @@ render();
 
 </script>
 	
-let myData = [
-    ["label" : "Mon",   "value" : NSNumber(int:15)],
-    ["label" : "Tues",  "value" : NSNumber(int:30)],
-    ["label" : "Weds",  "value" : NSNumber(int:7)],
-    ["label" : "Thurs", "value" : NSNumber(int:60)],
-    ["label" : "Fri",   "value" : NSNumber(int:30)],
-    ["label" : "Sat",   "value" : NSNumber(int:15)],
-    ["label" : "Sun",   "value" : NSNumber(int:45)],
-] as NSArray
-
-let graph = GraphView(frame: CGRectMake(50, 50, 420, 200), data: myData)
-self.view.addSubview(graph)
