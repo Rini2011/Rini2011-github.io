@@ -78,181 +78,120 @@ function brushed() {
 </script>
 
 <!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis--y path {
+  display: none;
+}
+
+.line path {
+  fill: none;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+}
+
+.line text {
+  font: bold 12px sans-serif;
+  text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+</style>
 <body>
-<h1>Example 1</h1>
-</body>
+<script src="//d3js.org/d3.v4.0.0-alpha.29.min.js"></script>
+<script>
 
-  <head>    
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.1.3"></script>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.geom.js?2.1.3"></script>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.layout.js?2.1.3"></script>
-    <style type="text/css">
+var data = [
+  {name: "HSL Rainbow", labelOffset: 60, value: function(t) { return d3.hsl(t, 1, 0.5); }},
+  {name: "HCL Rainbow", labelOffset: 20, value: function(t) { return d3.hcl(t, 1, 0.5); }},
+  {name: "Cubehelix Rainbow", labelOffset: 40, value: d3.scaleRainbow().domain([0, 360])}
+].map(function(color) {
+  return color.deltas = d3.range(0, 360, 3).map(function(x) {
+    return {
+      input: x,
+      delta: delta(color.value(x - 10), color.value(x + 10))
+    };
+  }), color;
+});
 
-        .bar rect
-        .label
-        {
-            /*
-            fill: black;
-            stroke: black;
-*/
-        }
-        .label
-        {
-            
-            font-family: Verdana;
-            font-size: 15pt;
-            color: gray;
-            fill-opacity: .6;
-        }
-        .value
-        {
-            font-family: Verdana;
-            font-size: 11pt;
-            color: gray;
-            fill-opacity: .6;
-        }
-        .tick_label
-        {
-            font-size: 15pt;
-            font-family: Verdana;
-            color: gray;
-            fill-opacity: .6;
-        }
-    </style>
-  </head>
-         
-    <script type="text/javascript">
-    var data = [{"label":"2017", "value":19}, 
-            {"label":"2016", "value":56}, 
-            {"label":"2015", "value":7},
-            {"label":"2014", "value":77},
-            {"label":"2013", "value":22},
-            {"label":"2012", "value":16},
-            ];
-    //maximum of data you want to use
-    var data_max = 80,
-    //number of tickmarks to use
-    num_ticks = 5,
-    //margins
-    left_margin = 120,
-    right_margin = 120,
-    top_margin = 30,
-    bottom_margin = 0;
-    var w = 500,                        //width
-        h = 500,                        //height
-        color = function(id) { return '#00b3dc' };
-    var x = d3.scale.linear()
-        .domain([0, data_max])
-        .range([0, w - ( left_margin + right_margin ) ]),
-        y = d3.scale.ordinal()
-        .domain(d3.range(data.length))
-        .rangeBands([bottom_margin, h - top_margin], .5);
-    var chart_top = h - y.rangeBand()/10 - top_margin;
-    var chart_bottom = bottom_margin + y.rangeBand()/2;
-    var chart_left = left_margin;
-    var chart_right = w - right_margin;
-    /*
-     *  Setup the SVG element and position it
-     */
-    var vis = d3.select("body")
-        .append("svg:svg")
-            .attr("width", w)
-            .attr("height", h)
-        .append("svg:g")
-            .attr("id", "barchart")
-            .attr("class", "barchart")
-    //Ticks
-    var rules = vis.selectAll("g.rule")
-        .data(x.ticks(num_ticks))
-    .enter()
-        .append("svg:g")
-        .attr("transform", function(d)
-                {
-                return "translate(" + (chart_left + x(d)) + ")";});
-    rules.append("svg:line")
-        .attr("class", "tick")
-        .attr("y1", chart_top)
-        .attr("y2", chart_top + 4)
-        .attr("stroke", "black");
-    rules.append("svg:text")
-        .attr("class", "tick_label")
-        .attr("text-anchor", "middle")
-        .attr("y", chart_top)
-        .text(function(d)
-        {
-        return d;
-        });
-    var bbox = vis.selectAll(".tick_label").node().getBBox();
-    vis.selectAll(".tick_label")
-    .attr("transform", function(d)
-            {
-            return "translate(0," + (bbox.height) + ")";
-            });
-    var bars = vis.selectAll("g.bar")
-        .data(data)
-    .enter()
-        .append("svg:g")
-            .attr("class", "bar")
-            .attr("transform", function(d, i) { 
-                    return "translate(0, " + y(i) + ")"; });
-    bars.append("svg:rect")
-        .attr("x", right_margin)
-        .attr("width", function(d) {
-                return (x(d.value));
-                })
-        .attr("height", y.rangeBand())
-        .attr("fill", color(0))
-        .attr("stroke", color(0));
-    //Labels
-    var labels = vis.selectAll("g.bar")
-        .append("svg:text")
-            .attr("class", "label")
-            .attr("x", 0)
-            .attr("text-anchor", "right")
-            .text(function(d) {
-                    return d.label;
-                    });
-    var bbox = labels.node().getBBox();
-    vis.selectAll(".label")
-        .attr("transform", function(d) {
-                return "translate(0, " + (y.rangeBand()/2 + bbox.height/4) + ")";
-                });
-    labels = vis.selectAll("g.bar")
-        .append("svg:text")
-        .attr("class", "value")
-        .attr("x", function(d)
-                {
-                return x(d.value) + right_margin + 10;
-                })
-        .attr("text-anchor", "left")
-        .text(function(d)
-        {
-        return "" + d.value + "%";
-        });
-    bbox = labels.node().getBBox();
-    vis.selectAll(".value")
-        .attr("transform", function(d)
-        {
-            return "translate(0, " + (y.rangeBand()/2 + bbox.height/4) + ")";
-        });
-    //Axes
-    vis.append("svg:line")
-        .attr("class", "axes")
-        .attr("x1", chart_left)
-        .attr("x2", chart_left)
-        .attr("y1", chart_bottom)
-        .attr("y2", chart_top)
-        .attr("stroke", "black");
-     vis.append("svg:line")
-        .attr("class", "axes")
-        .attr("x1", chart_left)
-        .attr("x2", chart_right)
-        .attr("y1", chart_top)
-        .attr("y2", chart_top)
-        .attr("stroke", "black");
- 
-    </script>
- 
+var margin = {top: 20, right: 20, bottom: 30, left: 30},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scaleLinear()
+    .domain([0, 360])
+    .range([0, width]);
+
+var y = d3.scaleLinear()
+    .domain([0, 80])
+    .range([height, 0]);
+
+var z = d3.scaleCategory10();
+
+var line = d3.line()
+    .curve(d3.curveBasis)
+    .x(function(d) { return x(d.input); })
+    .y(function(d) { return y(d.delta); });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + y(0) + ")")
+    .call(d3.axisBottom(x));
+
+svg.append("g")
+    .attr("class", "axis axis--y")
+    .call(d3.axisLeft(y))
+  .selectAll(".tick:last-of-type")
+  .append("text")
+    .attr("class", "axis-title")
+    .attr("x", 3)
+    .attr("dy", ".32em")
+    .text("Color Difference at ±10° (CIE76)");
+
+var g = svg.selectAll(".line")
+    .data(data)
+  .enter().append("g")
+    .attr("class", "line");
+
+g.append("path")
+    .attr("d", function(d) { return line(d.deltas); })
+    .attr("id", function(d, i) { return "path-" + i; })
+    .style("stroke", function(d, i) { return z(i); });
+
+g.append("text")
+    .attr("x", function(d) { return d.labelOffset; })
+    .attr("dy", -5)
+    .style("fill", function(d, i) { return d3.lab(z(i)).darker(); })
+  .append("textPath")
+    .attr("class", "textpath")
+    .attr("xlink:href", function(d, i) { return "#path-" + i; })
+    .text(function(d) { return d.name; });
+
+// CIE76 per https://en.wikipedia.org/wiki/Color_difference#CIE76
+// Not as good as CIEDE2000 but a lot easier to implement.
+function delta(a, b) {
+  var dl = (a = d3.lab(a)).l - (b = d3.lab(b)).l, da = a.a - b.a, db = a.b - b.b;
+  return Math.sqrt(dl * dl + da * da + db * db);
+}
+
+</script>
 	
 <!DOCTYPE html>
   <head>    
@@ -950,118 +889,4 @@ rect {
 
 </style>
 
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
 
-.axis {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.axis--y path {
-  display: none;
-}
-
-.line path {
-  fill: none;
-  stroke-width: 1.5px;
-  stroke-linejoin: round;
-}
-
-.line text {
-  font: bold 12px sans-serif;
-  text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
-}
-
-</style>
-<body>
-<script src="//d3js.org/d3.v4.0.0-alpha.29.min.js"></script>
-<script>
-
-var data = [
-  {name: "HSL Rainbow", labelOffset: 60, value: function(t) { return d3.hsl(t, 1, 0.5); }},
-  {name: "HCL Rainbow", labelOffset: 20, value: function(t) { return d3.hcl(t, 1, 0.5); }},
-  {name: "Cubehelix Rainbow", labelOffset: 40, value: d3.scaleRainbow().domain([0, 360])}
-].map(function(color) {
-  return color.deltas = d3.range(0, 360, 3).map(function(x) {
-    return {
-      input: x,
-      delta: delta(color.value(x - 10), color.value(x + 10))
-    };
-  }), color;
-});
-
-var margin = {top: 20, right: 20, bottom: 30, left: 30},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-var x = d3.scaleLinear()
-    .domain([0, 360])
-    .range([0, width]);
-
-var y = d3.scaleLinear()
-    .domain([0, 80])
-    .range([height, 0]);
-
-var z = d3.scaleCategory10();
-
-var line = d3.line()
-    .curve(d3.curveBasis)
-    .x(function(d) { return x(d.input); })
-    .y(function(d) { return y(d.delta); });
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg.append("g")
-    .attr("class", "axis axis--x")
-    .attr("transform", "translate(0," + y(0) + ")")
-    .call(d3.axisBottom(x));
-
-svg.append("g")
-    .attr("class", "axis axis--y")
-    .call(d3.axisLeft(y))
-  .selectAll(".tick:last-of-type")
-  .append("text")
-    .attr("class", "axis-title")
-    .attr("x", 3)
-    .attr("dy", ".32em")
-    .text("Color Difference at ±10° (CIE76)");
-
-var g = svg.selectAll(".line")
-    .data(data)
-  .enter().append("g")
-    .attr("class", "line");
-
-g.append("path")
-    .attr("d", function(d) { return line(d.deltas); })
-    .attr("id", function(d, i) { return "path-" + i; })
-    .style("stroke", function(d, i) { return z(i); });
-
-g.append("text")
-    .attr("x", function(d) { return d.labelOffset; })
-    .attr("dy", -5)
-    .style("fill", function(d, i) { return d3.lab(z(i)).darker(); })
-  .append("textPath")
-    .attr("class", "textpath")
-    .attr("xlink:href", function(d, i) { return "#path-" + i; })
-    .text(function(d) { return d.name; });
-
-// CIE76 per https://en.wikipedia.org/wiki/Color_difference#CIE76
-// Not as good as CIEDE2000 but a lot easier to implement.
-function delta(a, b) {
-  var dl = (a = d3.lab(a)).l - (b = d3.lab(b)).l, da = a.a - b.a, db = a.b - b.b;
-  return Math.sqrt(dl * dl + da * da + db * db);
-}
-
-</script>
