@@ -113,9 +113,9 @@ function brushed() {
 <script>
 
 var data = [
-  {name: "HSL Rainbow", labelOffset: 60, value: function(t) { return d3.hsl(t, 1, 0.5); }},
-  {name: "HCL Rainbow", labelOffset: 20, value: function(t) { return d3.hcl(t, 1, 0.5); }},
-  {name: "Cubehelix Rainbow", labelOffset: 40, value: d3.scaleRainbow().domain([0, 360])}
+  {name: "x", labelOffset: 60, value: function(t) { return d3.hsl(t, 1, 0.5); }},
+  {name: "y", labelOffset: 20, value: function(t) { return d3.hcl(t, 1, 0.5); }},
+  {name: "z", labelOffset: 40, value: d3.scaleRainbow().domain([0, 360])}
 ].map(function(color) {
   return color.deltas = d3.range(0, 360, 3).map(function(x) {
     return {
@@ -163,7 +163,7 @@ svg.append("g")
     .attr("class", "axis-title")
     .attr("x", 3)
     .attr("dy", ".32em")
-    .text("Color Difference at ±10° (CIE76)");
+    .text("test");
 
 var g = svg.selectAll(".line")
     .data(data)
@@ -184,8 +184,6 @@ g.append("text")
     .attr("xlink:href", function(d, i) { return "#path-" + i; })
     .text(function(d) { return d.name; });
 
-// CIE76 per https://en.wikipedia.org/wiki/Color_difference#CIE76
-// Not as good as CIEDE2000 but a lot easier to implement.
 function delta(a, b) {
   var dl = (a = d3.lab(a)).l - (b = d3.lab(b)).l, da = a.a - b.a, db = a.b - b.b;
   return Math.sqrt(dl * dl + da * da + db * db);
