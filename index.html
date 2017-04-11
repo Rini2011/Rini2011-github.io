@@ -147,12 +147,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-  
+</head>  
+    
+    
 <body>
 <div class="container-fluid">
-
-&nbsp
+    
 	<h1>x <small>y </small></h1>
 <hr>
 
@@ -163,8 +163,17 @@
 					<label for="acronym"> </label>
 					<input type="Postcode" class="form-control" id="acronym" placeholder="Enter your text">
 				</div>
-				<a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
-				<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Clear</a>
+				    <a href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span> Search</a>
+                
+                <button onclick="myFunction()" class="btn btn-      primary btn-md"><span class="glyphicon          glyphicon-remove"></span> Clear</a>
+               
+                <p id="demo"></p>
+                <script>
+                    function myFunction() {
+                     document.getElementById("demo").innerHTML = "";
+                    }
+                </script>
+                   
 			</form>
 		
 </div>
@@ -173,11 +182,11 @@
 	
 	<div class="container">
 		<div class="alert alert-success">
-			<strong>eine Übereinstimmung</strong>
+			<strong>Definition found!</strong>
 		</div>
 	
 		<div class="alert alert-warning">
-			<strong>mehrere Übereinstimmungen </strong> xyz
+			<strong>Multiple definitions found!  </strong> xyz
 		</div>
 	
 		<div class="alert alert-info">
@@ -185,19 +194,13 @@
 		</div>
 		
 		<div class="alert alert-danger">
-			<strong>keine Übereinstimmung </strong>aaa <a href="#" class="alert-link">here</a><span class="glyphicon glyphicon-envelope"></span>
+			<strong>Definition not found!  </strong>aaa <a href="#" class="alert-link">here</a><span class="glyphicon glyphicon-envelope"></span>
 		</div>
 		
 		<div class="form-group">
 			<label for="suggestion">Suggestion for new acronym:</label>
 			<input class="form-control input-lg" id="suggestion" type="text">
 			<button type="submit" class="btn btn-info">Submit suggestion</button>
-		</div>
-		
-		<div class="alert alert-success alert-dismissable">
- 		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  		<strong>Success!</strong> Indicates a successful or positive action.
-		
 		</div>
 		
 	</div>
@@ -226,22 +229,4 @@
 
 </div>	
 </body>
-</html>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>giphy_api</title>
-    <script src="libraries/p5.js" type="text/javascript"></script>
-
-    <script src="libraries/p5.dom.js" type="text/javascript"></script>
-    <script src="libraries/p5.sound.js" type="text/javascript"></script>
-
-    <script src="sketch.js" type="text/javascript"></script>
-
-    <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
-  </head>
-  <body>
-  </body>
 </html>
