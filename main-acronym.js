@@ -23,8 +23,9 @@ function myFunction() {
 function renderHTML(data) {
     var htmlString = "";
     var didyoufindit; /* Create a new one */
-    var numberofdefinition = 0; /* Amount of same definition */
-    var definition = []; /* Result array */
+        var numberofdefinition = 0; /* Amount of same definition */
+        var definition = [] ; /* Result array */
+    
     for (i = 1; i < data.length; i++) {
         htmlString = data[i][1];
 
@@ -34,13 +35,14 @@ function renderHTML(data) {
             numberofdefinition += 1; /* counts up if a another is found */
             didyoufindit = "yes";
         }
-    }
-    var text = "";
-    for (i = 0; i < definition.length; i++) {
-        text += definition[i] + "<br>";
-    }
+  }
+        var text = "";
+        for (i = 0; i < definition.length; i++) {
+            text += "<p>" + (i+1) + "." + "Definition" + definition[i] + "<br>";
+        }
 
     document.getElementById("showdata").innerHTML = text; /* Print the different definition */
+    //console.log(text);
 
     if (didyoufindit != "yes") {
         document.getElementById("showdata").innerHTML = ("Create a new one"); /* Create a new one as a text */
