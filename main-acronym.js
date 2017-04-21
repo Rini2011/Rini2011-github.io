@@ -35,11 +35,10 @@ function renderHTML(data) {
             didyoufindit = "yes";
             console.log(definition);
         }
-
+        }
         var text = "";
         for (i = 0; i < definition.length; i++) {
             text += definition[i] + "<br>";
-        }
     }
 
     document.getElementById("showdata").innerHTML = text; /* Print the different definition */
