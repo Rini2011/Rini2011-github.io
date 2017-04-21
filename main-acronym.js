@@ -41,7 +41,6 @@ function renderHTML(data) {
     }
 
     document.getElementById("showdata").innerHTML = text; /* Print the different definition */
-    //console.log(text);
 
     if (didyoufindit != "yes") {
         document.getElementById("showdata").innerHTML = ("Create a new one"); /* Create a new one as a text */
