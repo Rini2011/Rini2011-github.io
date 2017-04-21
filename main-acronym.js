@@ -23,11 +23,11 @@ function myFunction() {
 function renderHTML(data) {
     var htmlString = "";
     var didyoufindit; /* Create a new one */
-
+        var numberofdefinition = 0; /* Amount of same definition */
+        var definition = [] ; /* Result array */
     for (i = 1; i < data.length; i++) {
         htmlString = data[i][1];
-        var numberofdefinition = 0; /* Amount of same definition */
-        var definition = []; /* Result array */
+
 
         if (htmlString === x) {
             definition[numberofdefinition] = "<p>" + data[i][2] + "<p>" + data[i][3] + "<p>" + data[i][4];
@@ -35,11 +35,12 @@ function renderHTML(data) {
             didyoufindit = "yes";
             console.log(definition);
         }
-        }
+  }
         var text = "";
         for (i = 0; i < definition.length; i++) {
             text += definition[i] + "<br>";
-    }
+            console.log("aaa");
+        }
 
     document.getElementById("showdata").innerHTML = text; /* Print the different definition */
     //console.log(text);
