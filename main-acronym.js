@@ -23,8 +23,8 @@ function myFunction() {
 function renderHTML(data) {
     var htmlString = "";
     var didyoufindit; /* Create a new one */
-        var numberofdefinition = 0; /* Amount of same definition */
-        var definition = [] ; /* Result array */
+    var numberofdefinition = 0; /* Amount of same definition */
+    var definition = []; /* Result array */
     for (i = 1; i < data.length; i++) {
         htmlString = data[i][1];
 
@@ -33,14 +33,12 @@ function renderHTML(data) {
             definition[numberofdefinition] = "<p>" + data[i][2] + "<p>" + data[i][3] + "<p>" + data[i][4];
             numberofdefinition += 1; /* counts up if a another is found */
             didyoufindit = "yes";
-            console.log(definition);
         }
-  }
-        var text = "";
-        for (i = 0; i < definition.length; i++) {
-            text += definition[i] + "<br>";
-            console.log("aaa");
-        }
+    }
+    var text = "";
+    for (i = 0; i < definition.length; i++) {
+        text += definition[i] + "<br>";
+    }
 
     document.getElementById("showdata").innerHTML = text; /* Print the different definition */
     //console.log(text);
