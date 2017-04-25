@@ -31,14 +31,14 @@ function renderHTML(data) {
 
 
         if (htmlString === x) {
-            definition[numberofdefinition] = "<p>" + data[i][2] + "<p>" + data[i][3] + "<p>" + data[i][4];
+            definition[numberofdefinition] = data[i][2] + "<p>" + data[i][3] + "<p>" + data[i][4];
             numberofdefinition += 1; /* counts up if a another is found */
             didyoufindit = "yes";
         }
   }
         var text = "";
         for (i = 0; i < definition.length; i++) {
-            text += "<p>" + (i+1) + "." + "Definition" + definition[i] + "<br>";
+            text += (i+1) + "." + "Definition" + definition[i];
         }
 
     document.getElementById("showdata").innerHTML = text; /* Print the different definition */
